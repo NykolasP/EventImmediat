@@ -8,10 +8,17 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 
+
 def home(request):
+    """
+    View that returns the "homepage.html" template.
+    """
     return render(request, 'homepage.html')
 
 def register(request):
+    """
+    Allows you to register a user
+    """
     if request.method == "POST":
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
@@ -28,6 +35,9 @@ def register(request):
         return render(request, 'formulaires/register.html', {'form': form})
 
 def connect(request):
+    """
+    Allows a user to login
+    """
     if request.method == "POST":
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
@@ -44,10 +54,16 @@ def connect(request):
         return render(request, 'formulaires/connect.html', {'form': form})
     
 def deconnexion(request):
+    """
+    Allows a user to log out
+    """
     logout(request)
     return render(request, "users/deconnexion.html")
 
 def profil(request):
+    """
+    Allows a user to access their profile page
+    """
     if request.user.is_authenticated:
         user = request.user
         return render(request, 'users/profil.html',{'user': user})
@@ -55,6 +71,9 @@ def profil(request):
         return redirect("LiveApp:home")
 
 def change_password(request):
+    """
+    Allows a user to change their password
+    """
     if request.method == 'POST':
         form = PasswordChangeForm(user=request.user, data=request.POST)
         if form.is_valid():
@@ -66,16 +85,25 @@ def change_password(request):
     return render(request, 'formulaires/change_password.html', {'form': form})
 
 def events(request):
+    """
+    Allows you to see all the events
+    """
     events = Events.objects.all().order_by('date_creation')
     return render(request, 'events/events.html', {'events':events})
 
 @login_required
 def user_events(request):
+    """
+    Allows to see all these user events
+    """
     user = request.user
     events = Events.objects.filter(participants=user)
     return render(request, 'events/user_events.html', {'events': events})
 
 def event(request, id):
+    """
+    Allows you to see the details of an event
+    """
     if request.user.is_authenticated:
         user = request.user
         event = get_object_or_404(Events, id=id)
@@ -89,12 +117,17 @@ def event(request, id):
         return redirect("LiveApp:home")
 
 def add_participant(request, id):
+    """
+    Used to add a user to the event
+    """
     event = get_object_or_404(Events, id=id)
     event.add_participant(request.user)
     return redirect('LiveApp:event', id=id)
     
-
 def remove_participant(request, id):
+    """
+    Used to remove a user from the event
+    """
     event = get_object_or_404(Events, id=id)
     event.remove_participant(request.user)
     return redirect('LiveApp:event', id=id)
@@ -178,7 +211,6 @@ def delete_event(request, id):
     
     return render(request, 'formulaires/delete_event.html', {'event': event})
 
-
 def admin_users(request):
     if not request.user.is_staff:
         return redirect("LiveApp:home")
@@ -222,7 +254,6 @@ def edit_user(request, user_id):
             return redirect('LiveApp:admin_users')
 
     return render(request, 'formulaires/edit_user.html', {'form': form,'user':user})
-
 
 def delete_user(request, user_id):
     if not request.user.is_staff:
