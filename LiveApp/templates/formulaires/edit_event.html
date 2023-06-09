@@ -1,0 +1,44 @@
+{% extends "admin/backoffice.html" %}
+{% block content %}
+<div class="container">
+    <h2>Modifier l'événement</h2>
+    <form method="post" class="form">
+        {% csrf_token %}
+        
+        <div class="form-group mh20">
+          <label for="id_titre">Titre</label>
+          <input type="text" id="id_titre" name="titre" value="{{ event.titre }}" class="form-control">
+        </div>
+        
+        <div class="form-group mh20">
+          <label for="id_content">Contenu</label>
+          <textarea id="id_content" name="content" class="form-control">{{ event.content }}</textarea>
+        </div>
+        
+        <div class="form-group mh20">
+          <label for="id_nb_participant_max">Nombre maximum de participants</label>
+          <input type="number" id="id_nb_participant_max" name="nb_participant_max" value="{{ event.nb_participant_max }}" class="form-control">
+        </div>
+        
+        <div class="form-group mh20">
+          <label for="id_date_event">Date de l'événement</label>
+          <input type="date" id="id_date_event" name="date_event" value="{{ event.date_event|date:'Y-m-d' }}" class="form-control">
+        </div>
+        
+        <div class="form-group mh20">
+          <label for="id_participants">Participants</label>
+          <select id="id_participants" name="participants" class="form-control" multiple>
+            {% for user in users %}
+              {% if user in event.participants.all %}
+                <option value="{{ user.id }}" selected>{{ user.username }}</option>
+              {% else %}
+                <option value="{{ user.id }}">{{ user.username }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+        
+        <button type="submit" class="btn bouton_1 mh20">Enregistrer</button>
+    </form>
+</div>
+{% endblock %}

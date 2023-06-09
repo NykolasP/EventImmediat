@@ -1,0 +1,13 @@
+{% extends 'base.html'%}
+
+{% block content %}
+<div class="container">
+    <h2>Profil</h2>
+    <p>Nom d'utilisateur : {{ user.username }}</p>
+    <p>Email : {{ user.email }}</p>
+    <p>Prenom : {{ user.first_name }}</p>
+    <p>Nom : {{ user.last_name }}</p>
+    <p>Mot de passe : <a href="{% url 'LiveApp:change_password' %}" type="button" class="btn btn-outline-light me-2">Modifier mot de passe</a></p>
+    
+</div>
+{% endblock %}

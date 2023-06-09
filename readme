@@ -1,0 +1,12 @@
+Compte :
+Utilisateur :
+id : test_utilisateur
+mdp : azerty123456789
+
+Admin :
+id : test_admin
+mdp : azerty123456789
+
+Staff :
+id : test_staff
+mdp : azerty123456789

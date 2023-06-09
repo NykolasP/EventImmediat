@@ -1,0 +1,15 @@
+{% extends "admin/backoffice.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Supprimer un utilisateur</h1>
+
+    <p>Voulez-vous vraiment supprimer l'utilisateur "{{ user.username }}" ?</p>
+
+    <form method="POST" class="mh20" action="{% url 'LiveApp:delete_user' user.id %}">
+    {% csrf_token %}
+    <button type="submit" class="btn button_delete">Confirmer la suppression</button>
+    </form>
+
+</div>
+{% endblock %}

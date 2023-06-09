@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+<!-- Ici nous mettons le contenu de la page -->
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h1 class="capital">{{ event.titre }}</h1>
+
+            <div class="mh20">
+                <h4>Le {{ event.date_event|date:"d F Y" }}</h4>
+                <div>Nombre de participants {{ event.participants.count }} / {{ event.nb_participant_max }}</div>
+            </div>
+
+            <div class="mh20">
+                <h3>Participants :</h3>
+                <div>
+                    {% for participant in event.participants.all %}
+                        <div>{{ participant.username }}</div>
+                    {% empty %}
+                        Aucun participant pour le moment.
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    {% if event.participants.count == event.nb_participant_max %}
+                    <button type="submit" class="btn bouton_1" disabled>Complet</button>
+                    {% else %}
+                        <form action="{% url 'LiveApp:add_participant' id=event.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn bouton_2">Participer</button>
+                        </form>
+                    {% endif %}
+                </div>
+                <div class="col-md-4">
+                    {% for participant in event.participants.all %}
+                        {% if user.username == participant.username %}
+                        <form action="{% url 'LiveApp:remove_participant' id=event.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn bouton_2">Se retirer</button>
+                        </form>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-8">
+            <div>
+                <h3>Sujet</h3>
+                <p>{{ event.content }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

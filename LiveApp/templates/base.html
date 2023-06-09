@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <title>{% block title %}Event'Immediat{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Sonsie+One" rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+  </head>
+  <body>
+    {% block header %}
+    <header id="header" class="p-3">
+      <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+          <a href="{% url 'LiveApp:home' %}" class="d-flex col-1 align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+            <img width="70" src="{% static 'img/logo_2.png' %}" />
+          </a> 
+  
+          <ul class="nav col-11 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+            <li><a href="{% url 'LiveApp:home' %}" class="nav-link px-2 text-white">Accueil</a></li>
+            <li><a href="{% url 'LiveApp:events' %}" class="nav-link px-2 text-white">Evenements</a></li>
+            {% if request.user.is_authenticated %}
+            <li><a href="{% url 'LiveApp:myevents' %}" class="nav-link px-2 text-white">Mes evenements</a></li>
+            {% endif %}
+          </ul>
+  
+          <div class="text-end">
+            {% if request.user.is_authenticated %}
+              {% if request.user.is_staff %}
+              <a href="{% url 'LiveApp:adminstaff' %}" type="button" class="btn btn-outline-light me-2">Admin</a>
+              {% endif %}
+              <a href="{% url 'LiveApp:profil' %}" type="button" class="btn btn-outline-light me-2">Profil</a>
+              <a href="{% url 'LiveApp:deconnexion' %}" type="button" class="btn btn-outline-light me-2">Deconnexion</a>
+            {% else %}
+              <a href="{% url 'LiveApp:connect' %}" type="button" class="btn btn-outline-light me-2">Connexion</a>
+              <a href="{% url 'LiveApp:register' %}" type="button" class="btn bouton_1">Inscription</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </header>
+    {% endblock %}
+    <div id="body" class="text-w">
+      <main>
+        {% block content %}
+        {% endblock %}
+      </main>
+    </div>
+  </body>
+  <footer id="footer" class="footer text-w">
+    <div class="container">
+      <p>&copy; 2023 Event'Immediat. Tous droits réservés.</p>
+    </div>
+    <script src="{% static 'js/custom.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+  </footer>
+
+</body>
+</html>

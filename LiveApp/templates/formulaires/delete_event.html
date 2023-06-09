@@ -1,0 +1,14 @@
+{% extends "admin/backoffice.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Supprimer l'événement</h2>
+    <p>Êtes-vous sûr de vouloir supprimer cet événement ?</p>
+    <form method="post" class="mh20">
+        {% csrf_token %}
+        <button type="submit" class="btn button_delete">Confirmer la suppression</button>
+        <a href="{% url 'LiveApp:admin_events' %}" class="btn bouton_2">Annuler</a>
+    </form>
+
+</div>
+{% endblock %}

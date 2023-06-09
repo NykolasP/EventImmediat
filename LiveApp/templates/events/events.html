@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+<!-- Ici nous mettons le contenu de la page -->
+{% block content %}
+<div class="container">
+    <h1>Les Evenements</h1>
+    {% if request.user.is_authenticated %}
+    <div class="row ">
+        {% for event in events%}
+        <div class="col-sm-3 mb20">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ event.titre }}</h5>
+                    <p class="card-text">{{ event.content|truncatechars:100 }}</p>
+                    <a href="{% url 'LiveApp:event' event.id %}" type="button" class="btn more card-link">En savoir plus</a>
+                    {% if event.participants.count == event.nb_participant_max %}
+                    <button type="submit" class="btn bouton_1 join" disabled>Complet</button>
+                    {% else %}
+                    <a href="{% url 'LiveApp:add_participant' event.id %}" class="btn join">Participer</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <h2>Veuillez vous connecter pour voir les evenements !</h2>
+    {% endif %}
+</div>
+{% endblock %}

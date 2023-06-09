@@ -1,0 +1,27 @@
+{% extends "admin/backoffice.html" %}
+{% block content %}
+<div class="container">
+    <div class="mb20">
+        <a href="{% url 'LiveApp:create_event' %}" class="btn bouton_2">Créer un événement</a>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-1">ID</div>
+        <div class="col-md-2">Titre</div>
+        <div class="col-md-1">Participants</div>
+        <div class="col-md-5"></div>
+        <div class="col-md-1"></div>
+        <div class="col-md-2"></div>
+    </div>
+    {% for event in events %}
+    <div class="row row-align-center row-sep">
+        <div class="col-md-1">{{ event.id }}</div>
+        <div class="col-md-2">{{ event.titre }}</div>
+        <div class="col-md-1">{{ event.participants.count }} / {{ event.nb_participant_max }}</div>
+        <div class="col-md-5"></div>
+        <div class="col-md-1"><a href="{% url 'LiveApp:edit_event' id=event.id %}" class="btn button_edit">Modifier</a></div>
+        <div class="col-md-2"><a href="{% url 'LiveApp:delete_event' id=event.id %}" class="btn button_delete">Supprimer</a></div>
+    </div>  
+{% endfor %}
+</div>
+{% endblock %}

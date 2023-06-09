@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load event_filters %}
+{% block header %}
+    <header id="header" class="p-3">
+      <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+  
+          <ul class="nav col-11 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+            <li><a href="{% url 'LiveApp:home' %}" class="nav-link px-2 text-white">Retour à l'accueil</a></li>
+            <li><a href="{% url 'LiveApp:admin_users' %}" class="nav-link px-2 text-white">Utilisateurs</a></li>
+            {% if request.user.is_authenticated %}
+            <li><a href="{% url 'LiveApp:admin_events' %}" class="nav-link px-2 text-white">Evenements</a></li>
+            {% endif %}
+          </ul>
+  
+          <div class="text-end">
+            {% if request.user.is_authenticated %}
+              {% if request.user.is_staff %}
+              <a href="{% url 'LiveApp:adminstaff' %}" type="button" class="btn btn-outline-light me-2">Admin</a>
+              {% endif %}
+              <a href="{% url 'LiveApp:profil' %}" type="button" class="btn btn-outline-light me-2">Profil</a>
+              <a href="{% url 'LiveApp:deconnexion' %}" type="button" class="btn btn-outline-light me-2">Deconnexion</a>
+            {% else %}
+              <a href="{% url 'LiveApp:connexion' %}" type="button" class="btn btn-outline-light me-2">Connexion</a>
+              <a href="{% url 'LiveApp:inscription' %}" type="button" class="btn bouton_1">Inscription</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </header>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% if user.is_superuser %}
+        <h1>Bienvenue Administrateur  {{ user.username }}</h1>
+    {% elif user.is_staff %}
+        <h1>Bienvenue Employé {{ user.username }}</h1>
+    {% endif %}
+    <div class="mh20">
+        <h2>Événements</h2>
+        <p>Nombre d'événements total : {{ num_events }}</p>
+        <p>Nombre d'événements en cours : {{ num_ongoing_events }}</p>
+        <p>Nombre d'événements finis : {{ num_finished_events }}</p>
+    </div>
+      
+    <div class="mh20">
+        <h2>Employés</h2>
+        <p>Nombre d'employés : {{ num_employees }}</p>
+    </div>
+    
+    <div class="mh20">
+        <h2>Participants</h2>
+        <p>Nombre total de participants : {{ num_participants }}</p>
+        <p>Nombre de participants actif : {{ num_participants_actif }}</p>
+    </div>
+
+</div>
+{% endblock %}

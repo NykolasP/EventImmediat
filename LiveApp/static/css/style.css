@@ -1,0 +1,116 @@
+:root {
+    --couleur-principale:#ff006d;
+    --couleur-2:#ff7747;
+    --couleur-secondaire:#1f1f1f;
+    --couleur-tiaire:#181818;
+    --texte:#fff;
+}
+body {
+    background-color: var(--couleur-secondaire);
+    position: relative;
+    min-height: 100vh;
+}main {
+    padding-bottom: 50px;
+}
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+}
+#header {
+    background-color: var(--couleur-tiaire);
+    margin-bottom: 20px;
+}
+#body {
+    background-color: var(--couleur-secondaire);
+}
+
+#footer {
+    background-color: var(--couleur-tiaire);
+}
+.text-w {
+    color: var(--texte)
+}
+p {
+    margin:0px 0px;
+}
+.center-element {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+}
+.text-center {
+    text-align: center;
+}
+.name-color {
+    background: linear-gradient(to right, var(--couleur-principale), var(--couleur-2));
+    -webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+.bandeau_1 {
+    height: 600px;
+}
+.text-wd-60 {
+    width: 60%;
+}
+.bouton_1 {
+    background-color: var(--couleur-principale);
+    color: var(--texte);
+}
+.bouton_1:hover {
+    background-color: var(--couleur-2);
+    color: var(--texte);
+}
+.bouton_2 {
+    border-color: var(--couleur-principale);
+    color: var(--texte);
+}
+.bouton_2:hover {
+    background-color: var(--couleur-principale);
+    color: var(--texte);
+}
+.button_delete {
+    border-color:red;
+    color:red;
+}
+.button_edit {
+    border-color:green;
+    color:green;
+}
+
+.card {
+    border-width: 1px;
+    border-style: solid;
+    border-color: random;
+    background-color: var(--couleur-secondaire);
+    color: var(--texte);
+} 
+.card-title {
+    text-transform: capitalize;
+}
+.card-text {
+    margin: 20px 0px;
+}
+.capital {
+    text-transform: capitalize;
+}
+.mh20 {
+    margin: 20px 0px;
+}
+.mb20 {
+    margin-bottom: 20px;
+}
+.row-align-center {
+    display: flex;
+    align-items: center;
+}
+.row-sep {
+    margin: 10px 0px;
+}
+.row-sep:after {
+    border-bottom: 1px solid white;
+}

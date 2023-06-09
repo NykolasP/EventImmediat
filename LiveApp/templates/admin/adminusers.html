@@ -1,0 +1,39 @@
+{% extends "admin/backoffice.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="mb20">
+        <a href="{% url 'LiveApp:create_user' %}" class="btn bouton_2">Ajouter un utilisateur</a>
+    </div>
+    <div class="row">
+        <div class="col-md-1">ID</div>
+        <div class="col-md-1">Pseudo</div>
+        <div class="col-md-2">Prenom</div>
+        <div class="col-md-2">Nom</div>
+        <div class="col-md-2">Email</div>
+        <div class="col-md-1">Employé</div>
+        <div class="col-md-1">Administrateur</div>
+        <div class="col-md-1"></div>
+        <div class="col-md-1"></div>
+    </div>
+    {% for user in users %}
+        <div class="row row-align-center row-sep">
+            <div class="col-md-1">{{ user.id }}</div>
+            <div class="col-md-1">{{ user.username }}</div>
+            <div class="col-md-2">{{ user.first_name }}</div>
+            <div class="col-md-2">{{ user.last_name }}</div>
+            <div class="col-md-2">{{ user.email }}</div>
+            <div class="col-md-1">{% if user.is_staff %} <i style="color:green" class="bi bi-check"></i> {% else %} <i style="color:red" class="bi bi-x"></i> {% endif %}</div>
+            <div class="col-md-1">{% if user.is_superuser %} <i style="color:green" class="bi bi-check"></i> {% else %} <i style="color:red" class="bi bi-x"></i> {% endif %}</div>
+            <div class="col-md-1"><a href="{% url 'LiveApp:edit_user' user.id %}" class="btn button_edit">Éditer</a></div>
+            {% if request.user.is_superuser == user.is_superuser %}
+            <div class="col-md-1"><a href="{% url 'LiveApp:delete_user' user.id %}" class="btn button_delete">Supprimer</a></div>
+            {% elif request.user.is_staff and not user.is_superuser %}
+            <div class="col-md-1"><a href="{% url 'LiveApp:delete_user' user.id %}" class="btn button_delete">Supprimer</a></div>
+            {% endif %}
+        </div>
+    {% empty %}
+        <div>Aucun utilisateur trouvé.</div>
+    {% endfor %}
+</div>
+{% endblock %}

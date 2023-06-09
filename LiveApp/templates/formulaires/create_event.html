@@ -1,0 +1,42 @@
+{% extends "admin/backoffice.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Créer l'événement</h2>
+    <form method="post" class="form">
+        {% csrf_token %}
+        
+        <div class="form-group mh20">
+            <label for="id_titre">Titre</label>
+            <input type="text" id="id_titre" name="titre" class="form-control">
+        </div>
+        
+        <div class="form-group mh20">
+            <label for="id_content">Contenu</label>
+            <textarea id="id_content" name="content" class="form-control"></textarea>
+        </div>
+        
+        <div class="form-group mh20">
+            <label for="id_nb_participant_max">Nombre maximum de participants</label>
+            <input type="number" id="id_nb_participant_max" name="nb_participant_max" class="form-control">
+        </div>
+        
+        <div class="form-group mh20">
+            <label for="id_date_event">Date de l'événement</label>
+            <input type="date" id="id_date_event" name="date_event" class="form-control">
+        </div>
+
+        <div class="form-group mh20">
+            <label for="id_participants">Participants</label>
+            <select id="id_participants" name="participants" class="form-control" multiple>
+              {% for user in users %}
+              <option value="{{ user.id }}">{{ user.username }}</option>
+              {% endfor %}
+            </select>
+        </div>
+        
+        <button type="submit" class="btn mh20 bouton_1">Créer</button>
+        <a href="{% url 'LiveApp:admin_events' %}" class="btn bouton_2">Annuler</a>
+    </form>
+</div>
+{% endblock %}
