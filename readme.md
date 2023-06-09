@@ -19,6 +19,7 @@ cd EventImmediat
 python -m venv venv
 ```
 4 - Activez ensuite l'environnement virtuel :
+
 Sous Windows :
 ```
 venv\Scripts\activate
@@ -27,7 +28,11 @@ Sous macOS/Linux :
 ```
 source venv/bin/activate
 ```
-5 - Configurez les paramètres de la base de données MySQL dans le fichier 'settings.py'
+5 - installer les packages
+```
+pip install -r requirements.txt
+``` 
+6 - Configurez les paramètres de la base de données MySQL dans le fichier 'settings.py'
 ```
 DATABASES = {
     'default': {
